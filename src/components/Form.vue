@@ -1,9 +1,9 @@
 <script setup>
-import '../assets/styles/modules/_form.scss'
+
 </script>
 
 <template>
-		<div>
+		<div class="app-container">
 				<form class="form-feedback">
 
 						<div class="form-feedback__head">
@@ -16,19 +16,19 @@ import '../assets/styles/modules/_form.scss'
 								</div>
 
 								<div class="form-feedback__rating">
-										<span class="form-feedback__star"></span>
-										<span class="form-feedback__star"></span>
-										<span class="form-feedback__star"></span>
-										<span class="form-feedback__star"></span>
-										<span class="form-feedback__star"></span>
+										<button type="button" class="form-feedback__star"></button>
+										<button type="button" class="form-feedback__star"></button>
+										<button type="button" class="form-feedback__star"></button>
+										<button type="button" class="form-feedback__star"></button>
+										<button type="button" class="form-feedback__star"></button>
 								</div>
 								<div class="form-feedback__benefits-wrap">
-										<span class="form-feedback__item-benefit active-item">Интересно</span>
-										<span class="form-feedback__item-benefit">Легко</span>
-										<span class="form-feedback__item-benefit">Быстро сделал</span>
-										<span class="form-feedback__item-benefit">Красиво</span>
-										<span class="form-feedback__item-benefit">Подробно описано</span>
-										<span class="form-feedback__item-benefit">Все понятно и по делу</span>
+										<button type="button" class="form-feedback__item-benefit active-item">Интересно</button>
+										<button type="button" class="form-feedback__item-benefit">Легко</button>
+										<button type="button" class="form-feedback__item-benefit">Быстро сделал</button>
+										<button type="button" class="form-feedback__item-benefit">Красиво</button>
+										<button type="button" class="form-feedback__item-benefit">Подробно описано</button>
+										<button type="button" class="form-feedback__item-benefit">Все понятно и по делу</button>
 								</div>
 						</div>
 
@@ -69,6 +69,13 @@ import '../assets/styles/modules/_form.scss'
 						</div>
 
 						<div class="form-feedback__footer">
+								<div class="form-feedback__steps-wrap">
+										<span class="form-feedback__step active-step">1</span>
+										<span class="form-feedback__step-process">
+												<span class="form-feedback__step-process-line" style="width: 50%;"></span>
+										</span>
+										<span class="form-feedback__step">2</span>
+								</div>
 								<button type="button" class="form-feedback__btn form-feedback__btn--white">Отменить</button>
 								<button type="submit" class="form-feedback__btn form-feedback__btn--blue">Отправить</button>
 						</div>

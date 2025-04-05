@@ -1,9 +1,9 @@
 <script setup>
-import FormModal from "./components/FormModal.vue";
+import Form from "./components/Form.vue";
 </script>
 
 <template>
-		<FormModal />
+		<Form />
 </template>
 
 
