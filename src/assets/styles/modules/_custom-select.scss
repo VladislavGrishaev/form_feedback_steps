@@ -1,0 +1,95 @@
+.custom-select {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+
+  &__label {
+    display: block;
+    margin: 0 0 4px 0;
+    font-size: 14px;
+    line-height: 20px;
+    color: #6f6c90;
+  }
+
+  &__selected {
+    position: relative;
+    height: 56px;
+    padding: 14px 16px;
+    border-radius: 8px;
+    border: 1px solid #f7f7fb;
+    background-color: #f7f7fb;
+    transition: 0.3s;
+    color: #a0a3bd;
+
+    &::after {
+      content: "";
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 14px;
+      height: 8px;
+      background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2013.5%207.5%22%3E%3Cpath%20d%3D%22M1%2C1%2C7%2C7l6-6%22%20transform%3D%22translate(-0.25%20-0.25)%22%20style%3D%22fill%3Anone%3Bstroke%3A%23a0a3bd%3Bstroke-linecap%3Around%3Bstroke-linejoin%3Around%3Bstroke-width%3A1.5px%22%2F%3E%3C%2Fsvg%3E") no-repeat center;
+      transition: transform 0.3s;
+    }
+
+    &.active-select {
+      border-color: #4a3aff;
+
+      &::after {
+        background: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2013.5%207.5%22%3E%3Cpath%20d%3D%22M1%2C1%2C7%2C7l6-6%22%20transform%3D%22translate(-0.25%20-0.25)%22%20style%3D%22fill%3Anone%3Bstroke%3A%234a3aff%3Bstroke-linecap%3Around%3Bstroke-linejoin%3Around%3Bstroke-width%3A1.5px%22%2F%3E%3C%2Fsvg%3E") no-repeat center;
+        transform: translateY(-50%) rotate(180deg);
+      }
+    }
+
+  }
+
+  &__dropdown-wrap {
+    //display: none;
+    position: absolute;
+    width: 100%;
+    max-height: 216px;
+    margin: 4px 0 0 0;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px -2px rgba(10, 10, 10, 0.06), 2px 4px 8px -2px rgba(10, 10, 10, 0.08);
+    background-color: #fff;
+    overflow: hidden;
+    z-index: 10;
+
+    &.active-show-select {
+      display: block;
+    }
+  }
+
+  &__dropdown {
+    width: calc(100% - 7px);
+    height: calc(100% - 14px);
+    margin: 10px 0 0 0;
+    max-height: inherit;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+      border-radius: 12px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #fff;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #c2c2c2;
+      border-radius: 12px;
+    }
+  }
+
+  &__option {
+    padding: 13px 16px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f7f7fb;
+    }
+  }
+}
