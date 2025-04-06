@@ -1,24 +1,54 @@
 <script setup>
+import {onMounted, ref} from "vue";
+import IMask from "imask";
+import {useFormStore} from "../store/formStore.js";
+/** ------------------------------------------- **/
+
+const store = useFormStore();
+const phoneInput = ref(null);
+
+onMounted(() => {
+	if(phoneInput.value) {
+   IMask(phoneInput.value, {
+     mask: '+{7} (000) 000 00 00',
+     lazy: true
+   });
+	}
+})
+
+const isSelected = (benefit) => store.formData.benefits.includes(benefit);
+
 
 </script>
 
 <template>
-		<form class="form-feedback__form">
+		<form
+						:class="{'active-benefits': store.formData.rating !== 0}"
+						class="form-feedback__form">
 				<div class="form-feedback__rating">
-						<button type="button" class="form-feedback__star"></button>
-						<button type="button" class="form-feedback__star"></button>
-						<button type="button" class="form-feedback__star"></button>
-						<button type="button" class="form-feedback__star"></button>
-						<button type="button" class="form-feedback__star"></button>
+						<button
+								v-for="index in 5"
+								:key="index"
+								:class="{ 'active-star': index <= store.formData.rating }"
+								class="form-feedback__star"
+								type="button"
+								@click="store.setRating(index)"
+						></button>
+
 				</div>
 
-				<div class="form-feedback__benefits-wrap">
-						<button type="button" class="form-feedback__item-benefit active-item">Интересно</button>
-						<button type="button" class="form-feedback__item-benefit">Легко</button>
-						<button type="button" class="form-feedback__item-benefit">Быстро сделал</button>
-						<button type="button" class="form-feedback__item-benefit">Красиво</button>
-						<button type="button" class="form-feedback__item-benefit">Подробно описано</button>
-						<button type="button" class="form-feedback__item-benefit">Все понятно и по делу</button>
+				<div
+								v-if="store.formData.rating > 0"
+								class="form-feedback__benefits-wrap">
+						<button
+										v-for="benefit in store.benefitsArray"
+										:key="benefit"
+										:class="{ 'active-item': isSelected(benefit) }"
+										@click="store.toggleBenefit(benefit)"
+										type="button"
+										class="form-feedback__item-benefit">
+								{{ benefit }}
+						</button>
 				</div>
 
 				<div class="form-feedback__fields-container">
@@ -32,7 +62,12 @@
 						</div>
 						<div class="form-feedback__field-wrap form-feedback__field-wrap--phone">
 								<label for="phone">Номер телефона</label>
-								<input id="phone" type="tel" placeholder="+7 (000) 000 00 00">
+								<input
+												ref="phoneInput"
+												v-model="store.formData.phone"
+												id="phone"
+												type="tel"
+												placeholder="+7 (000) 000 00 00">
 						</div>
 						<div class="custom-select">
 								<span class="custom-select__label">Грейд</span>

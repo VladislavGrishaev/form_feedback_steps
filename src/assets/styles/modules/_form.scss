@@ -50,7 +50,7 @@
   &__rating {
     display: flex;
     align-items: center;
-    flex-direction: row-reverse;
+    //flex-direction: row-reverse;
     justify-content: center;
     gap: 33px;
     grid-area: rating;
@@ -132,6 +132,20 @@
 
   &__field-wrap {
 
+    &.active-error {
+      input {
+        border-color:#fd2727;
+        background-color: #fdf2f2;
+      }
+    }
+
+    &.active-valid {
+      input {
+        border-color:#5bc729;
+        background-color: #effbe9;
+      }
+    }
+
     label {
       display: block;
       margin: 0 0 4px 0;
@@ -186,6 +200,8 @@
       grid-area: message;
     }
   }
+
+
 }
 
 @include breakpoints.desktop_and_tablet {
