@@ -1,9 +1,10 @@
 <script setup>
-import Form from "./components/Form.vue";
+
+import FeedbackModal from "./components/FeedbackModal.vue";
 </script>
 
 <template>
-		<Form />
+		<FeedbackModal />
 </template>
 
 
