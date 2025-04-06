@@ -8,7 +8,7 @@
   border: 1px solid #4a3aff;
   border-radius: 8px;
   transition: 0.3s;
-  font: 400 16px/20px "DMSans-Regular";
+  font: 400 16px/20px "Roboto-Regular";
 
   &-white {
     background-color: #fff;
@@ -34,6 +34,6 @@
 @include breakpoints.mobile {
   .btn {
     padding: 11px;
-    font: 400 14px/20px "DMSans-Regular";
+    font: 400 14px/20px "Roboto-Regular";
   }
 }

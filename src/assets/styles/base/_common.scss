@@ -21,24 +21,24 @@ body {
 
 
 @font-face {
-  font-family: "DMSans-Regular";
-  src: url('../../fonts/DMSans-Regular.ttf') format('truetype');
+  font-family: "Roboto-Regular";
+  src: url('@/assets/fonts/Roboto-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "DMSans-Medium";
-  src: url('../../fonts/DMSans-Medium.ttf') format('truetype');
+  font-family: "Roboto-Medium";
+  src: url('@/assets/fonts/Roboto-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "DMSans-Bold";
-  src: url('../../fonts/DMSans-Bold.ttf') format('truetype');
+  font-family: "Roboto-Bold";
+  src: url('@/assets/fonts/Roboto-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -46,7 +46,7 @@ body {
 
 
 html, body, a, button {
-  font: 400 16px/28px 'DMSans-Regular';
+  font: 400 16px/28px 'Roboto-Regular';
   color: #170f49;
 }
 
