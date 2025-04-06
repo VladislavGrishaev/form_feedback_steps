@@ -3,8 +3,8 @@
 
 .form-feedback {
   position: relative;
-  max-height: calc(100dvh - 56px);
   max-width: 637px;
+  max-height: 99vh;
   width: 100%;
   padding: 44px;
   overflow: hidden auto;
@@ -216,6 +216,7 @@
 
 @include breakpoints.mobile {
   .form-feedback {
+    max-height: calc(95vh - 20px);
     padding: 20px 12px 16px 12px;
     border-radius: 16px;
 

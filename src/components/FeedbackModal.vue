@@ -10,7 +10,10 @@ import ErrorForm from "./ErrorForm.vue";
 				<div class="form-feedback">
 						<button type="button" class="form-feedback__btn-close"></button>
 
-						<HeaderForm/>
+						<HeaderForm
+										:title="'Форма обратной связи'"
+										:subtitle="'Пожалуйста, оцените свой опыт прохождения тестового'"
+						/>
 						<Form/>
 <!--						<SuccessForm/>-->
 <!--						<ErrorForm/>-->
