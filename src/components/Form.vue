@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 import IMask from "imask";
 import {useFormStore} from "../store/formStore.js";
 /** ------------------------------------------- **/
@@ -7,6 +7,7 @@ import {useFormStore} from "../store/formStore.js";
 const store = useFormStore();
 const phoneInput = ref(null);
 
+// маска телефона
 onMounted(() => {
 	if(phoneInput.value) {
    IMask(phoneInput.value, {
@@ -16,9 +17,25 @@ onMounted(() => {
 	}
 })
 
+// выбранные преимущества
 const isSelected = (benefit) => store.formData.benefits.includes(benefit);
 
+// ховер рейтингов
+const hoverRating = ref(0)
 
+const isActive = (index) => {
+  // Используем hoverRating для подсветки
+  return index <= (hoverRating.value || store.formData.rating)
+}
+
+
+// отслеживаем изменения рейтинга
+watch(
+  () => store.formData.rating,
+  (newRating) => {
+    console.log(`${newRating}`)
+  }
+)
 </script>
 
 <template>
@@ -29,10 +46,12 @@ const isSelected = (benefit) => store.formData.benefits.includes(benefit);
 						<button
 								v-for="index in 5"
 								:key="index"
-								:class="{ 'active-star': index <= store.formData.rating }"
+								:class="{'active-star': isActive(index)}"
 								class="form-feedback__star"
 								type="button"
 								@click="store.setRating(index)"
+								@mouseover="hoverRating = index"
+								@mouseleave="hoverRating = 0"
 						></button>
 
 				</div>
