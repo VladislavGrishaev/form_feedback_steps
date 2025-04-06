@@ -1,0 +1,23 @@
+@use "../../styles/base/_breakpoints.scss";
+
+.success {
+  display: flex;
+  flex-direction: column;
+
+  &__revert-btn {
+    max-width: 260px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@include breakpoints.mobile {
+  .success {
+
+
+
+    &__revert-btn {
+      max-width: none;
+    }
+  }
+}

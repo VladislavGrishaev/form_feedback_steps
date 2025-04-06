@@ -1,0 +1,39 @@
+@use "../../styles/base/_breakpoints.scss";
+
+.btn {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  padding: 17px;
+  border: 1px solid #4a3aff;
+  border-radius: 8px;
+  transition: 0.3s;
+  font: 400 16px/20px "DMSans-Regular";
+
+  &-white {
+    background-color: #fff;
+    color: #4a3aff;
+
+    &:hover {
+      background-color: #6f6c90;
+      border-color: #6f6c90;
+      color: #fff;
+    }
+  }
+
+  &--blue {
+    background-color: #4a3aff;
+    color: #fff;
+
+    &:hover {
+      background-color: #1104c5;
+    }
+  }
+}
+
+@include breakpoints.mobile {
+  .btn {
+    padding: 11px;
+    font: 400 14px/20px "DMSans-Regular";
+  }
+}

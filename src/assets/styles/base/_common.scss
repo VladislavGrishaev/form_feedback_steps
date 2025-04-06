@@ -1,3 +1,5 @@
+@use "../../styles/base/_breakpoints.scss";
+
 * {
   box-sizing: border-box;
 
@@ -20,7 +22,7 @@ body {
 
 @font-face {
   font-family: "DMSans-Regular";
-  src: url('/fonts/DMSans-Regular.ttf') format('truetype');
+  src: url('../../fonts/DMSans-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -28,7 +30,7 @@ body {
 
 @font-face {
   font-family: "DMSans-Medium";
-  src: url('/fonts/DMSans-Medium.ttf') format('truetype');
+  src: url('../../fonts/DMSans-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -36,7 +38,7 @@ body {
 
 @font-face {
   font-family: "DMSans-Bold";
-  src: url('/fonts/DMSans-Bold.ttf') format('truetype');
+  src: url('../../fonts/DMSans-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -103,18 +105,6 @@ section {
   margin-bottom: 70px;
 }
 
-@media screen and (max-width: 1024px) {
-  section {
-    margin-bottom: 50px;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  section {
-    margin-bottom: 30px;
-  }
-}
-
 
 iframe {
   border: 0 !important;
@@ -128,17 +118,6 @@ iframe {
   padding: 0 20px;
 }
 
-@media screen and (max-width: 767px) {
-  .container {
-    padding: 0 15px;
-  }
-}
-
-@media screen and (max-width: 375px) {
-  .container {
-    padding: 0 10px;
-  }
-}
 
 body::-webkit-scrollbar {
   width: 10px;
@@ -165,11 +144,6 @@ body::-webkit-scrollbar {
   padding-right: 10px;
 }
 
-@media screen and (max-width: 1200px) {
-  .active-modal {
-    padding-right: 0;
-  }
-}
 
 body, ul, ol, th, td, button, h1, h2, h3, h4, h5, h6, p {
   margin: 0;
@@ -356,14 +330,6 @@ textarea {
   -webkit-appearance: none;
 }
 
-// input[type="text"],
-// input[type="search"],
-// input[type="button"],
-// input[type="submit"],
-// textarea
-// 	border-radius: 0
-// 	-webkit-border-radius: 0px
-
 
 optgroup {
   color: inherit;
@@ -462,10 +428,6 @@ input[type="search"] { // appearance: none
   &::-webkit-search-decoration {
     -webkit-appearance: none;
   }
-
-  // input[type="text"]
-  // 	appearance: none
-  // 	-webkit-appearance: none
 }
 
 fieldset {
@@ -482,4 +444,22 @@ legend {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+.icon-status {
+  width: 157px;
+  height: 143px;
+  margin: 75px auto 95px auto;
+
+  img {
+    object-fit: contain;
+  }
+}
+
+@include breakpoints.mobile {
+  .icon-status {
+    width: 100px;
+    height: 91px;
+    margin: 32px auto 44px auto;
+  }
 }

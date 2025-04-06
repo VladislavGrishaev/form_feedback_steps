@@ -1,0 +1,33 @@
+@use "../../styles/base/_breakpoints.scss";
+
+.error {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: "icon icon" "btn_cancel btn_retry";
+  gap: 0 28px;
+
+  &__icon {
+    grid-area: icon;
+  }
+
+  &__cancel-btn {
+    grid-area: btn_cancel;
+  }
+
+  &__retry-btn {
+    grid-area: btn_retry;
+  }
+}
+
+@include breakpoints.mobile {
+  .error {
+    grid-template-columns: 1fr;
+    grid-template-areas: "icon" "btn_cancel" "btn_retry";
+    gap: 20px 0;
+
+
+    &__icon {
+      margin: 32px auto 24px auto;
+    }
+  }
+}
