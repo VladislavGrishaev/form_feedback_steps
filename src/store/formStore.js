@@ -67,45 +67,59 @@ export const useFormStore = defineStore('form', {
     },
 
     /** валидация полей **/
-    validateForm() {
-      let isValid = true
+    // имя
+    validateName() {
+      const name = this.formData.name.trim();
 
-      // имя
-      if (!this.formData.name.trim()) {
-        this.errors.name = true
-        isValid = false
-
-
-        console.log('[FORM STORE] Ошибка валидации: не заполнено имя')
+      if (!name) {
+        this.errors.name = true;
+        return false;
       }
       else {
-        this.errors.name = false
+        this.errors.name = false;
+        return true;
       }
+    },
 
-      // email
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    // почта
+    validateEmail() {
+      const email = this.formData.email.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 
-      if (!emailRegex.test(this.formData.email)) {
-        this.errors.email = true
-        isValid = false
-
-        console.log(`[FORM STORE] Ошибка валидации: некорректный email "${this.formData.email}"`)
-      } else {
-        this.errors.email = false
+      if (!emailRegex.test(email)) {
+        this.errors.email = true;
+        return false;
       }
-
-      // телефон
-      const phoneRegex = /^\+7\s?\(?\d{3}\)?\s?\d{3}\s?\d{2}\s?\d{2}$/
-
-      if (!phoneRegex.test(this.formData.phone)) {
-        this.errors.phone = true
-        isValid = false
-
-        console.log(`[FORM STORE] Ошибка валидации: некорректный телефон "${this.formData.phone}"`)
-      } else {
-        this.errors.phone = false
+      else {
+        this.errors.email = false;
+        return true;
       }
+    },
+
+    // телефон
+    validatePhone() {
+      const phone = this.formData.phone.trim();
+      const phoneRegex = /^\+7\s?\(?\d{3}\)?\s?\d{3}\s?\d{2}\s?\d{2}$/;
+
+      if (!phoneRegex.test(phone)) {
+        this.errors.phone = true;
+        return false;
+      }
+      else {
+        this.errors.phone = false;
+        return true;
+      }
+    },
+
+    /** валидация всей формы **/
+    validateForm() {
+      const nameValid = this.validateName();
+      const emailValid = this.validateEmail();
+      const phoneValid = this.validatePhone();
+
+      return nameValid && emailValid && phoneValid;
     }
+
   }
 })
 

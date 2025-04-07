@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, ref, watch} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import IMask from "imask";
 import {useFormStore} from "../store/formStore.js";
 /** ------------------------------------------- **/
@@ -9,12 +9,22 @@ const phoneInput = ref(null);
 
 // маска телефона
 onMounted(() => {
-	if(phoneInput.value) {
-   IMask(phoneInput.value, {
-     mask: '+{7} (000) 000 00 00',
-     lazy: true
-   });
-	}
+  if(phoneInput.value) {
+    const mask = IMask(phoneInput.value, {
+      mask: '+{7} (000) 000 00 00',
+      lazy: true
+    });
+
+    // Синхронизация значения маски с хранилищем
+    mask.on('accept', () => {
+      store.formData.phone = mask.value;
+      store.validatePhone();
+    });
+
+    if (store.formData.phone) {
+      mask.value = store.formData.phone;
+    }
+  }
 })
 
 // выбранные преимущества
@@ -27,8 +37,6 @@ const isActive = (index) => {
   // Используем hoverRating для подсветки
   return index <= (hoverRating.value || store.formData.rating)
 }
-
-
 // отслеживаем изменения рейтинга
 watch(
   () => store.formData.rating,
@@ -36,6 +44,41 @@ watch(
     console.log(`${newRating}`)
   }
 )
+
+// UI-валидация
+const touchedName = ref(false);
+const touchedEmail = ref(false);
+const touchedPhone = ref(false);
+
+const nameHasError = computed(() => {
+  return touchedName.value && (store.errors.name || store.formData.name.trim() === '');
+});
+const nameIsValid = computed(() => {
+  return touchedName.value && !store.errors.name && store.formData.name.trim() !== '';
+});
+
+const emailHasError = computed(() => {
+  return touchedEmail.value && (store.errors.email || store.formData.email.trim() === '');
+});
+const emailIsValid = computed(() => {
+  return touchedEmail.value && !store.errors.email && store.formData.email.trim() !== '';
+});
+
+const phoneHasError = computed(() => {
+  return touchedPhone.value && (store.errors.phone || store.formData.phone.trim() === '');
+});
+const phoneIsValid = computed(() => {
+  return touchedPhone.value && !store.errors.phone && store.formData.phone.trim() !== '';
+});
+
+
+
+
+
+
+
+
+
 </script>
 
 <template>
@@ -71,21 +114,53 @@ watch(
 				</div>
 
 				<div class="form-feedback__fields-container">
-						<div class="form-feedback__field-wrap form-feedback__field-wrap--name">
-								<label for="fullname">ФИО</label>
-								<input id="fullname" type="text" name="name" placeholder="Иван Иванов">
+						<div
+										:class="{
+				        'active-error': nameHasError,
+												'active-success': nameIsValid
+										}"
+										class="form-feedback__field-wrap form-feedback__field-wrap--name">
+								<label for="fullName">ФИО</label>
+								<input
+												v-model="store.formData.name"
+												@blur="touchedName = true; store.validateName()"
+												@input="touchedName = true; store.validateName()"
+												id="fullName"
+												type="text"
+												placeholder="Иван Иванов">
 						</div>
-						<div class="form-feedback__field-wrap form-feedback__field-wrap--email">
+
+						<div
+										:class="{
+				        'active-error': emailHasError,
+												'active-success': emailIsValid
+										}"
+										class="form-feedback__field-wrap form-feedback__field-wrap--email">
 								<label for="email">Почта</label>
-								<input id="email" type="email" placeholder="Текст">
+								<input
+												v-model="store.formData.email"
+												@blur="touchedEmail = true; store.validateEmail()"
+												@input="touchedEmail = true; store.validateEmail()"
+												id="email"
+												type="email"
+												placeholder="Текст">
 						</div>
-						<div class="form-feedback__field-wrap form-feedback__field-wrap--phone">
+
+						<div
+										:class="{
+           'active-error': phoneHasError,
+											'active-success': phoneIsValid
+										}"
+										class="form-feedback__field-wrap form-feedback__field-wrap--phone">
 								<label for="phone">Номер телефона</label>
 								<input
-												ref="phoneInput"
 												v-model="store.formData.phone"
+					       @blur="touchedPhone = true; store.validatePhone()"
+												@input="touchedPhone = true; $event.target.value = $event.target.value.slice(0, 18)"
+												ref="phoneInput"
 												id="phone"
 												type="tel"
+												maxlength="18"
 												placeholder="+7 (000) 000 00 00">
 						</div>
 						<div class="custom-select">

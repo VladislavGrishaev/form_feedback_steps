@@ -131,20 +131,6 @@
 
   &__field-wrap {
 
-    &.active-error {
-      input {
-        border-color:#fd2727;
-        background-color: #fdf2f2;
-      }
-    }
-
-    &.active-valid {
-      input {
-        border-color:#5bc729;
-        background-color: #effbe9;
-      }
-    }
-
     label {
       display: block;
       margin: 0 0 4px 0;
@@ -180,6 +166,20 @@
 
       &:focus {
         border-color: #4a3aff;
+      }
+    }
+
+    &.active-error, &:focus.active-error {
+      input {
+        border-color:#fd2727;
+        background-color: #fdf2f2;
+      }
+    }
+
+    &.active-success {
+      input, input:focus {
+        border-color: #5bc729;
+        background-color: #effbe9 !important;
       }
     }
 
