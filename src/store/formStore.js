@@ -2,6 +2,7 @@ import {defineStore} from "pinia";
 
 export const useFormStore = defineStore('form', {
   state: () => ({
+    formStatus: 'form',
     currentStep: 1,
     formData: {
       rating: 0,
@@ -10,7 +11,7 @@ export const useFormStore = defineStore('form', {
       email: '',
       phone: '',
       grade: '',
-      message: '',
+      message: ''
     },
     errors: {
       name: false,
@@ -119,6 +120,17 @@ export const useFormStore = defineStore('form', {
 
       return nameValid && emailValid && phoneValid;
     },
+
+    /** обновление статуса формы **/
+    statusForm() {
+      if (this.validateForm()) {
+        this.formStatus = 'success'
+      }
+      else {
+        this.formStatus = 'error'
+      }
+    },
+
 
     /** сброс занчений формы **/
     resetForm() {

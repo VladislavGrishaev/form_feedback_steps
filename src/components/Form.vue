@@ -39,13 +39,6 @@ const isActive = (index) => {
   // Используем hoverRating для подсветки
   return index <= (hoverRating.value || store.formData.rating)
 }
-// отслеживаем изменения рейтинга
-watch(
-  () => store.formData.rating,
-  (newRating) => {
-    console.log(`${newRating}`)
-  }
-)
 
 // UI-валидация
 const touchedName = ref(false);
@@ -93,6 +86,7 @@ useClickOutside(customSelectRef, () => isDropdownOpen.value = false);
 // отправка формы
 const sendForm = ()=> {
 		store.validateForm()
+		store.statusForm()
 
   console.log('Отправка формы:');
   console.log(JSON.stringify(store.formData, null, 2));
