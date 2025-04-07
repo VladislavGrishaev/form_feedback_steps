@@ -13,13 +13,9 @@ export const useFormStore = defineStore('form', {
       message: '',
     },
     errors: {
-      rating: false,
-      benefits: false,
       name: false,
       email: false,
       phone: false,
-      grade: false,
-      message: false,
     },
     benefitsArray: [
       'Интересно',
@@ -29,7 +25,7 @@ export const useFormStore = defineStore('form', {
       'Подробно описано',
       'Все понятно и по делу',
     ]
-    ,optionArray: [
+    , optionArray: [
       'Junior',
       'Middle',
       'Senior',
@@ -54,8 +50,7 @@ export const useFormStore = defineStore('form', {
       if (this.formData.rating === rating) {
         this.formData.rating = 0
         this.formData.benefits = []
-      }
-      else {
+      } else {
         this.formData.rating = rating
         this.formData.benefits = []
       }
@@ -69,8 +64,7 @@ export const useFormStore = defineStore('form', {
 
       if (index === -1) {
         this.formData.benefits.push(benefit)
-      }
-      else {
+      } else {
         this.formData.benefits.splice(index, 1)
       }
     },
@@ -83,8 +77,7 @@ export const useFormStore = defineStore('form', {
       if (!name) {
         this.errors.name = true;
         return false;
-      }
-      else {
+      } else {
         this.errors.name = false;
         return true;
       }
@@ -98,8 +91,7 @@ export const useFormStore = defineStore('form', {
       if (!emailRegex.test(email)) {
         this.errors.email = true;
         return false;
-      }
-      else {
+      } else {
         this.errors.email = false;
         return true;
       }
@@ -113,8 +105,7 @@ export const useFormStore = defineStore('form', {
       if (!phoneRegex.test(phone)) {
         this.errors.phone = true;
         return false;
-      }
-      else {
+      } else {
         this.errors.phone = false;
         return true;
       }
@@ -127,11 +118,26 @@ export const useFormStore = defineStore('form', {
       const phoneValid = this.validatePhone();
 
       return nameValid && emailValid && phoneValid;
+    },
+
+    /** сброс занчений формы **/
+    resetForm() {
+      this.formData = {
+        rating: 0,
+        benefits: [],
+        name: '',
+        email: '',
+        phone: '',
+        grade: '',
+        message: '',
+      };
+      this.errors = {
+        name: false,
+        email: false,
+        phone: false,
+
+      }
     }
-
-
-
-
   }
 })
 

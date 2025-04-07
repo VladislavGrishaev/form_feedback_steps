@@ -90,13 +90,23 @@ const customSelectRef = ref(null);
 
 useClickOutside(customSelectRef, () => isDropdownOpen.value = false);
 
+// отправка формы
+const sendForm = ()=> {
+		store.validateForm()
 
+  console.log('Отправка формы:');
+  console.log(JSON.stringify(store.formData, null, 2));
+}
 
+const resetDataForm = ()=> {
+		store.resetForm()
+}
 
 </script>
 
 <template>
 		<form
+						@submit.prevent="sendForm"
 						:class="{'active-benefits': store.formData.rating !== 0}"
 						class="form-feedback__form">
 				<div class="form-feedback__rating">
@@ -140,6 +150,7 @@ useClickOutside(customSelectRef, () => isDropdownOpen.value = false);
 												@blur="touchedName = true; store.validateName()"
 												@input="touchedName = true; store.validateName()"
 												id="fullName"
+												name="name"
 												type="text"
 												placeholder="Иван Иванов">
 						</div>
@@ -202,7 +213,11 @@ useClickOutside(customSelectRef, () => isDropdownOpen.value = false);
 						</div>
 						<div class="form-feedback__field-wrap form-feedback__field-wrap--message">
 								<label for="message">Дополнительная информация</label>
-								<textarea id="message" name="message" placeholder="Что понравилось и не понравилось"></textarea>
+								<textarea
+												v-model="store.formData.message"
+												id="message"
+												name="message"
+												placeholder="Что понравилось и не понравилось"></textarea>
 						</div>
 				</div>
 
@@ -215,7 +230,10 @@ useClickOutside(customSelectRef, () => isDropdownOpen.value = false);
 				</div>
 
 				<div class="form-feedback__btns-wrap">
-						<button type="button" class="form-feedback__btn btn btn-white">Отменить</button>
+						<button
+										@click="resetDataForm"
+										type="button"
+										class="form-feedback__btn btn btn-white">Отменить</button>
 						<button type="submit" class="form-feedback__btn btn btn--blue">Отправить</button>
 
 
