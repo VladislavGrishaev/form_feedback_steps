@@ -2,6 +2,8 @@
 import {computed, onMounted, ref, watch} from "vue";
 import IMask from "imask";
 import {useFormStore} from "../store/formStore.js";
+import {useClickOutside} from "@/composable/useClickOutside.js";
+
 /** ------------------------------------------- **/
 
 const store = useFormStore();
@@ -72,9 +74,21 @@ const phoneIsValid = computed(() => {
 });
 
 
+// селект грейда
+const isDropdownOpen = ref(false)
 
+const toggleDropdownSelect = ()=> {
+  isDropdownOpen.value = !isDropdownOpen.value
+}
 
+const selectGrade = (grade)=> {
+  store.setField('grade', grade)
+		isDropdownOpen.value = false
+}
 
+const customSelectRef = ref(null);
+
+useClickOutside(customSelectRef, () => isDropdownOpen.value = false);
 
 
 
@@ -163,19 +177,26 @@ const phoneIsValid = computed(() => {
 												maxlength="18"
 												placeholder="+7 (000) 000 00 00">
 						</div>
-						<div class="custom-select">
+						<div class="custom-select" ref="customSelectRef">
 								<span class="custom-select__label">Грейд</span>
-								<div class="custom-select__selected">Выберите</div>
-								<div class="custom-select__dropdown-wrap">
+								<div
+												:class="{'active-select': isDropdownOpen}"
+												@click="toggleDropdownSelect"
+												class="custom-select__selected">
+										  {{ store.formData.grade || 'Выберите' }}
+								</div>
+
+								<div
+												v-if="isDropdownOpen"
+												class="custom-select__dropdown-wrap">
 										<ul class="custom-select__dropdown">
-												<li class="custom-select__option">Junior</li>
-												<li class="custom-select__option">Middle</li>
-												<li class="custom-select__option">Senior</li>
-												<li class="custom-select__option">Team Lead</li>
-												<li class="custom-select__option">Junior</li>
-												<li class="custom-select__option">Middle</li>
-												<li class="custom-select__option">Senior</li>
-												<li class="custom-select__option">Team Lead</li>
+												<li
+																v-for="option in store.optionArray"
+																:key="option"
+																@click="selectGrade(option)"
+																class="custom-select__option">
+														{{ option }}
+												</li>
 										</ul>
 								</div>
 						</div>

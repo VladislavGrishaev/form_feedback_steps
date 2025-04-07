@@ -29,6 +29,15 @@ export const useFormStore = defineStore('form', {
       'Подробно описано',
       'Все понятно и по делу',
     ]
+    ,optionArray: [
+      'Junior',
+      'Middle',
+      'Senior',
+      'Team Lead',
+      'Junior+',
+      'Middle+',
+      'Senior+'
+    ]
   }),
   actions: {
     setCurrentStep(step) {
@@ -119,6 +128,9 @@ export const useFormStore = defineStore('form', {
 
       return nameValid && emailValid && phoneValid;
     }
+
+
+
 
   }
 })
