@@ -15,10 +15,7 @@ const {formStatus} = storeToRefs(store);
 				<div class="form-feedback">
 						<button type="button" class="form-feedback__btn-close"></button>
 
-						<HeaderForm
-										:title="'Форма обратной связи'"
-										:subtitle="'Пожалуйста, оцените свой опыт прохождения тестового'"
-						/>
+						<HeaderForm/>
 						<Form
 										v-if="formStatus === 'form'" />
 						<SuccessForm
