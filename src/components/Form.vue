@@ -101,11 +101,26 @@ const {width: windowWidth} = useWindowSize();
 
 const nextStepForm = () => {
   const isValid = store.validateForm();
-  console.log('Form validation result:', isValid); // Для отладки
 
   return isValid ? store.nextStep() :store.formStatus = 'error';
-
 }
+
+const progressBar = computed(() => {
+  if (store.currentStep === 2) return '100%';
+
+  const fields = [
+    store.formData.name.trim(),
+    store.formData.email.trim(),
+    store.formData.phone.trim()
+  ];
+
+  const filledCount = fields.filter(Boolean).length;
+  const progress = (filledCount / fields.length) * 50;
+
+  return `${progress}%`;
+});
+
+
 
 </script>
 
@@ -239,7 +254,7 @@ const nextStepForm = () => {
 				<!-- Кнопки для десктопа -->
 				<div
 								v-if="windowWidth >= 768"
-								class="form-feedback__btns-wrap">
+								class="form-feedback__btns-wrap form-feedback__btns-wrap--pc">
 						<button
 										@click="resetDataForm"
 										type="button"
@@ -248,14 +263,15 @@ const nextStepForm = () => {
 				</div>
 
 				<!-- Шаги для мобильных -->
-				<div class="form-feedback__steps-wrap form-feedback__btns-wrap--pc">
-						<span class="form-feedback__step active-step">1</span>
+				<div class="form-feedback__steps-wrap">
+						<span class="form-feedback__step">1</span>
 						<span class="form-feedback__step-process">
-													<span class="form-feedback__step-process-line" ></span>
+													<span
+																	:style="{width: progressBar}"
+																	class="form-feedback__step-process-line"></span>
 												</span>
 						<span class="form-feedback__step">2</span>
 				</div>
-
 
 				<!-- Кнопки для мобильных -->
 				<div class="form-feedback__btns-wrap form-feedback__btns-wrap--step-1">

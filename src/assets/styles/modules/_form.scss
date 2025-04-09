@@ -337,11 +337,12 @@
       font: 500 16px/18px "Roboto-Medium";
       color: #6f6c90;
 
-      &.active-step {
+      &:first-of-type {
         background-color: #4a3aff;
         color: #fff;
       }
     }
+
 
     &__step-process {
       position: relative;
@@ -359,7 +360,7 @@
       width: 0;
       height: 6px;
       border-radius: 40px;
-      transition: 0.5s;
+      transition: width 0.3s ease-in-out;
       background-color: #4a3aff;
       z-index: 1;
     }
@@ -406,6 +407,11 @@
           grid-template-areas:
             "select"
             "message";
+        }
+
+        .form-feedback__step:last-of-type {
+          background-color: #4a3aff;
+          color: #fff;
         }
       }
     }
