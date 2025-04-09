@@ -1,6 +1,6 @@
 <script setup>
 
-const emit = defineEmits(['to-main'])
+const emit = defineEmits(['retry-form'])
 
 </script>
 
@@ -10,7 +10,7 @@ const emit = defineEmits(['to-main'])
 						<img src="../assets/images/success.svg" alt="Успешно отправлено" />
 				</div>
 				<button
-								@click="emit('to-main')"
+								@click="emit('retry-form')"
 								class="success__revert-btn btn btn--blue">На главную</button>
 		</div>
 </template>

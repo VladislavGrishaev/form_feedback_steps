@@ -25,7 +25,7 @@ const emit = defineEmits(['close', 'close-error-form', 'retry-form'])
 								v-if="formStatus === 'form'"/>
 				<SuccessForm
 								v-else-if="formStatus === 'success'"
-								@to-main="emit('close')"
+								@retry-form="emit('retry-form')"
 				/>
 				<ErrorForm
 								v-else-if="formStatus === 'error'"

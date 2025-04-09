@@ -20,7 +20,10 @@ const closeForm = () => {
 const retryForm = () => {
 		store.resetForm();
 		store.formStatus = 'form';
+  showModal.value = true;
 };
+
+
 
 </script>
 
@@ -31,7 +34,6 @@ const retryForm = () => {
 								@close="closeForm"
 								@close-error-form="closeForm"
 				    @retry-form="retryForm"
-								@to-main="closeForm"
 				/>
 
 				<div class="open-modal">
