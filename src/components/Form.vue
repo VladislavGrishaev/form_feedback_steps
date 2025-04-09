@@ -93,8 +93,13 @@ const sendForm = ()=> {
   console.log(JSON.stringify(store.formData, null, 2));
 }
 
-const resetDataForm = ()=> {
-		store.resetForm()
+const cancelForm = ()=> {
+  touchedName.value = true;
+  touchedEmail.value = true;
+  touchedPhone.value = true;
+
+  store.validateForm();
+  store.resetForm();
 }
 
 const {width: windowWidth} = useWindowSize();
@@ -256,10 +261,10 @@ const progressBar = computed(() => {
 								v-if="windowWidth >= 768"
 								class="form-feedback__btns-wrap form-feedback__btns-wrap--pc">
 						<button
-										@click="resetDataForm"
+										@click="cancelForm"
 										type="button"
-										class="form-feedback__btn btn btn-white">Отменить ПК</button>
-						<button type="submit" class="form-feedback__btn btn btn--blue">Отправить ПК</button>
+										class="form-feedback__btn btn btn-white">Отменить</button>
+						<button type="submit" class="form-feedback__btn btn btn--blue">Отправить</button>
 				</div>
 
 				<!-- Шаги для мобильных -->
@@ -276,25 +281,25 @@ const progressBar = computed(() => {
 				<!-- Кнопки для мобильных -->
 				<div class="form-feedback__btns-wrap form-feedback__btns-wrap--step-1">
 						<button
-
+										@click="cancelForm"
 										type="button"
-										class="form-feedback__btn btn btn-white">Отменить 1</button>
+										class="form-feedback__btn btn btn-white">Отменить</button>
 
 						<button
 										@click="nextStepForm"
 										type="button"
-										class="form-feedback__btn btn btn--blue">Далее 1</button>
+										class="form-feedback__btn btn btn--blue">Далее</button>
 				</div>
 
 				<div class="form-feedback__btns-wrap form-feedback__btns-wrap--step-2">
 						<button
           @click="store.prevStep"
 										type="button"
-										class="form-feedback__btn btn btn-white">Назад 2</button>
+										class="form-feedback__btn btn btn-white">Назад</button>
 						<button
 										@click="sendForm"
 										type="button"
-										class="form-feedback__btn btn btn--blue">Далее2</button>
+										class="form-feedback__btn btn btn--blue">Далее</button>
 				</div>
 
 		</form>
