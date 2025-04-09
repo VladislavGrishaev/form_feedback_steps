@@ -1,8 +1,9 @@
 <script setup>
-import {computed, onMounted, ref, watch} from "vue";
+import {computed, onMounted, ref} from "vue";
 import IMask from "imask";
 import {useFormStore} from "../store/formStore.js";
 import {useClickOutside} from "@/composable/useClickOutside.js";
+import useWindowSize from "@/composable/useWindowSize.js";
 
 /** ------------------------------------------- **/
 
@@ -88,7 +89,7 @@ const sendForm = ()=> {
 		store.validateForm()
 		store.statusForm()
 
-  console.log('Отправка формы:');
+  console.log('Результат данных формы:');
   console.log(JSON.stringify(store.formData, null, 2));
 }
 
@@ -96,12 +97,28 @@ const resetDataForm = ()=> {
 		store.resetForm()
 }
 
+const {width: windowWidth} = useWindowSize();
+
+const nextStepForm = () => {
+  const isValid = store.validateForm();
+  console.log('Form validation result:', isValid); // Для отладки
+
+  return isValid ? store.nextStep() :store.formStatus = 'error';
+
+}
+
 </script>
 
 <template>
 		<form
 						@submit.prevent="sendForm"
-						:class="{'active-benefits': store.formData.rating !== 0}"
+						:class="{
+        'active-is-mobile': windowWidth <= 767,
+        'active-is-desktop': windowWidth >= 768,
+        'active-benefits': store.formData.rating !== 0,
+        'active-step-1': store.currentStep === 1 && windowWidth <= 767,
+        'active-step-2': store.currentStep === 2 && windowWidth <= 767
+      }"
 						class="form-feedback__form">
 				<div class="form-feedback__rating">
 						<button
@@ -133,6 +150,7 @@ const resetDataForm = ()=> {
 
 				<div class="form-feedback__fields-container">
 						<div
+
 										:class="{
 				        'active-error': nameHasError,
 												'active-success': nameIsValid
@@ -182,7 +200,9 @@ const resetDataForm = ()=> {
 												maxlength="18"
 												placeholder="+7 (000) 000 00 00">
 						</div>
-						<div class="custom-select" ref="customSelectRef">
+						<div
+										class="custom-select"
+										ref="customSelectRef">
 								<span class="custom-select__label">Грейд</span>
 								<div
 												:class="{'active-select': isDropdownOpen}"
@@ -205,7 +225,8 @@ const resetDataForm = ()=> {
 										</ul>
 								</div>
 						</div>
-						<div class="form-feedback__field-wrap form-feedback__field-wrap--message">
+						<div
+										class="form-feedback__field-wrap form-feedback__field-wrap--message">
 								<label for="message">Дополнительная информация</label>
 								<textarea
 												v-model="store.formData.message"
@@ -215,49 +236,50 @@ const resetDataForm = ()=> {
 						</div>
 				</div>
 
-				<div class="form-feedback__steps-wrap">
+				<!-- Кнопки для десктопа -->
+				<div
+								v-if="windowWidth >= 768"
+								class="form-feedback__btns-wrap">
+						<button
+										@click="resetDataForm"
+										type="button"
+										class="form-feedback__btn btn btn-white">Отменить ПК</button>
+						<button type="submit" class="form-feedback__btn btn btn--blue">Отправить ПК</button>
+				</div>
+
+				<!-- Шаги для мобильных -->
+				<div class="form-feedback__steps-wrap form-feedback__btns-wrap--pc">
 						<span class="form-feedback__step active-step">1</span>
 						<span class="form-feedback__step-process">
-													<span class="form-feedback__step-process-line" style="width: 50%;"></span>
+													<span class="form-feedback__step-process-line" ></span>
 												</span>
 						<span class="form-feedback__step">2</span>
 				</div>
 
-				<div class="form-feedback__btns-wrap">
+
+				<!-- Кнопки для мобильных -->
+				<div class="form-feedback__btns-wrap form-feedback__btns-wrap--step-1">
 						<button
-										@click="resetDataForm"
+
 										type="button"
-										class="form-feedback__btn btn btn-white">Отменить</button>
-						<button type="submit" class="form-feedback__btn btn btn--blue">Отправить</button>
+										class="form-feedback__btn btn btn-white">Отменить 1</button>
 
-
+						<button
+										@click="nextStepForm"
+										type="button"
+										class="form-feedback__btn btn btn--blue">Далее 1</button>
 				</div>
+
+				<div class="form-feedback__btns-wrap form-feedback__btns-wrap--step-2">
+						<button
+          @click="store.prevStep"
+										type="button"
+										class="form-feedback__btn btn btn-white">Назад 2</button>
+						<button
+										@click="sendForm"
+										type="button"
+										class="form-feedback__btn btn btn--blue">Далее2</button>
+				</div>
+
 		</form>
 </template>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

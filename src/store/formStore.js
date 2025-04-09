@@ -37,8 +37,26 @@ export const useFormStore = defineStore('form', {
     ]
   }),
   actions: {
+    /** текущий шаг **/
     setCurrentStep(step) {
       this.currentStep = step
+    },
+
+    /** следующий шаг **/
+    nextStep() {
+      if (this.validateForm()) {
+        this.currentStep += 1
+      }
+      else {
+        console.log('Validation failed');
+      }
+    },
+
+    /** предыдущий шаг **/
+    prevStep() {
+      if (this.currentStep > 1) {
+        this.currentStep -= 1
+      }
     },
 
     setField(field, value) {
@@ -123,12 +141,9 @@ export const useFormStore = defineStore('form', {
 
     /** обновление статуса формы **/
     statusForm() {
-      if (this.validateForm()) {
-        this.formStatus = 'success'
-      }
-      else {
-        this.formStatus = 'error'
-      }
+      const isValid = this.validateForm();
+      this.formStatus = isValid ? 'success' : 'error';
+      return isValid;
     },
 
 
@@ -147,8 +162,8 @@ export const useFormStore = defineStore('form', {
         name: false,
         email: false,
         phone: false,
-
       }
+      this.currentStep = 1
     }
   }
 })

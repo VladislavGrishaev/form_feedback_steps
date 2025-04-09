@@ -44,6 +44,9 @@ body {
   font-display: swap;
 }
 
+.open-modal {
+  position: fixed;
+}
 
 html, body, a, button {
   font: 400 16px/28px 'Roboto-Regular';
@@ -86,7 +89,7 @@ html, body, a, button {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 28px 12px;
+  padding: 20px 12px;
 }
 
 

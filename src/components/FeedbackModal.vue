@@ -11,18 +11,18 @@ const {formStatus} = storeToRefs(store);
 </script>
 
 <template>
-		<div class="app-container">
-				<div class="form-feedback">
-						<button type="button" class="form-feedback__btn-close"></button>
 
-						<HeaderForm/>
-						<Form
-										v-if="formStatus === 'form'" />
-						<SuccessForm
-										v-else-if="formStatus === 'success'"/>
-						<ErrorForm
-										v-else-if="formStatus === 'error'"/>
-				</div>
+		<div class="form-feedback">
+				<button type="button" class="form-feedback__btn-close"></button>
+
+				<HeaderForm/>
+				<Form
+								v-if="formStatus === 'form'"/>
+				<SuccessForm
+								v-else-if="formStatus === 'success'"/>
+				<ErrorForm
+								v-else-if="formStatus === 'error'"/>
 		</div>
+
 </template>
 
